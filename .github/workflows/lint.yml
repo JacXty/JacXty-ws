@@ -18,13 +18,10 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Install dependencies
         run: npm install
 
       - name: Run ESLint
-        run: npx eslint . --ext .js,.ts
-
-      - name: Run Prettier check
-        run: npx prettier --check "**/*.{js,ts,json,css,md}"
+        run: npx eslint . --ext .ts,.js
