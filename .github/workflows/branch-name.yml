@@ -2,9 +2,6 @@ name: Branch Name Validation
 
 on:
   pull_request:
-    branches:
-      - main
-      - development
 
 jobs:
   branch-name:
@@ -14,11 +11,17 @@ jobs:
         id: branch
         run: echo "BRANCH_NAME=${GITHUB_HEAD_REF}" >> $GITHUB_ENV
 
+      - name: Skip main and development
+        if: ${{ env.BRANCH_NAME == 'main' || env.BRANCH_NAME == 'development' }}
+        run: |
+          echo "✅ Branch is main or development, skipping validation."
+          exit 0
+
       - name: Validate branch name pattern
+        if: ${{ env.BRANCH_NAME != 'main' && env.BRANCH_NAME != 'development' }}
         run: |
           if [[ ! "${BRANCH_NAME}" =~ ^ws1feat\/[a-z0-9\-]+$ ]]; then
             echo "❌ Branch name '${BRANCH_NAME}' does not match pattern 'ws1feat/name-name'"
             exit 1
           else
             echo "✅ Branch name valid: ${BRANCH_NAME}"
-          fi
