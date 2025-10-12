@@ -22,9 +22,11 @@ jobs:
         run: |
           PATTERN="^(ws1feat|bugfix|hotfix|release)/[a-z0-9\-_]+$"
 
-          if [[ ! "${BRANCH_NAME}" =~ $PATTERN ]]; then
+          echo "${BRANCH_NAME}" | grep -Eq "$PATTERN"
+          if [ $? -ne 0 ]; then
             echo "❌ Branch name '${BRANCH_NAME}' does not match pattern '${PATTERN}'"
             exit 1
           else
             echo "✅ Branch name valid: ${BRANCH_NAME}"
+
 
