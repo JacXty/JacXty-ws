@@ -19,8 +19,9 @@ jobs:
 
       - name: Validate branch name pattern
         if: ${{ env.BRANCH_NAME != 'main' && env.BRANCH_NAME != 'development' }}
+        shell: bash
         run: |
-          PATTERN="^(ws1feat|bugfix|hotfix|release)/[a-z0-9\-_]+$"
+          PATTERN="^(ws1feat|bugfix|hotfix|release)/[a-z0-9_-]+$"
 
           echo "${BRANCH_NAME}" | grep -Eq "$PATTERN"
           if [ $? -ne 0 ]; then
@@ -28,5 +29,6 @@ jobs:
             exit 1
           else
             echo "✅ Branch name valid: ${BRANCH_NAME}"
+
 
 
