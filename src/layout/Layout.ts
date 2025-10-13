@@ -12,7 +12,7 @@ export function Layout() {
     // Main content
     const main = document.createElement('main');
     main.id = 'main-content';
-    main.className = 'p-4 bg-[#141414]';
+    main.className = 'px-4 py-4 bg-[#141414]';
     app.appendChild(main);
 
 }
