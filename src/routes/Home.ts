@@ -1,15 +1,10 @@
-import { Button } from '../components/Button';
-
 export function Home() {
-    const app = document.getElementById('app')!;
-    app.innerHTML = '';
+    const main = document.getElementById('main-content')!;
+    main.innerHTML = '<h1 class="text-2xl font-bold">Welcome to Home</h1>';
 
-    const title = document.createElement('h1');
-    title.textContent = 'Hello World!';
-    title.className = 'text-3xl font-bold underline text-center mb-4';
+    const section = document.createElement('section');
+    section.className = 'pt-32';
+    section.textContent = 'Hola como estas';
 
-    const btn = Button('Click Me', () => alert('Button clicked!'));
-
-    app.appendChild(title);
-    app.appendChild(btn);
+    main.appendChild(section); // <- Aquí agregas la sección al DOM
 }
