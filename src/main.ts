@@ -1,9 +1,8 @@
 import './style.css';
+import { setupRouter } from './routes/router';
+import { Home } from './routes/Home';
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div class="text-3xl font-bold underline text-center ">
-    Hello world!
-    <a href='https://www.typescriptlang.org/' target='_blank'>
-    </a>
-  </div>
-`;
+// Config routes
+setupRouter({
+    '#home': Home
+});
