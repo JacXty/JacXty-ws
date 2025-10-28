@@ -20,8 +20,9 @@ jobs:
       - name: Validate branch name pattern
         if: ${{ env.BRANCH_NAME != 'main' && env.BRANCH_NAME != 'development' }}
         run: |
-          if [[ ! "${BRANCH_NAME}" =~ ^ws1feat\/[a-z0-9\-]+$ ]]; then
-            echo "❌ Branch name '${BRANCH_NAME}' does not match pattern 'ws1feat/name-name'"
+          if [[ ! "${BRANCH_NAME}" =~ ^ws[0-9]feat/[a-z0-9\-]+$ ]]; then
+            echo "❌ Branch name '${BRANCH_NAME}' does not match pattern 'ws<digit>feat/name-name'"
             exit 1
           else
             echo "✅ Branch name valid: ${BRANCH_NAME}"
+          fi
