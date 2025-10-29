@@ -8,7 +8,7 @@ export function AboutMe() {
   section.id = 'about';
   section.className = `
     bg-[#141414] text-white
-    grid grid-cols-1 md:grid-cols-3 gap-8 px-8 py-16
+    grid grid-cols-1 md:grid-cols-3 gap-8 px-8 py-16 min-h-screen
   `;
 
   const left = document.createElement('div');
