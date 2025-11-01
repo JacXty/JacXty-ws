@@ -1,6 +1,14 @@
 import { Modal } from './Modal';
 
-export function Carousel(items = []) {
+export interface Project {
+  id: number;
+  title: string;
+  role: string;
+  description: string;
+  thumbnail_url: string;
+}
+
+export function Carousel(items: Project[] = []) {
   const itemsPerPage = 3;
   let currentIndex = 0;
 
