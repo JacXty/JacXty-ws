@@ -57,7 +57,13 @@ export function Home() {
     md:absolute md:bottom-18 md:left-1/2 md:-translate-x-1/2
     animate__animated animate__pulse animate__infinite
   `;
-  button.setAttribute('aria-label', 'Scroll down');
+  button.setAttribute('aria-label', 'Go to About page');
+
+  // Función para redireccionar a la página About
+  button.addEventListener('click', () => {
+    window.location.href = '/about'; // <- Aquí pones la URL de la página About
+  });
+
 
   const icon = document.createElement('img');
   icon.src = 'assets/icons/down.svg';
