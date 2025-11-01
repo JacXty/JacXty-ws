@@ -1,4 +1,5 @@
 import { Card } from '../components/Cards';
+import { Modal } from '../components/Modal';
 
 export function AboutMe() {
   const main = document.getElementById('main-content')!;
@@ -51,6 +52,20 @@ export function AboutMe() {
       // IMPARES → #181818, PARES → #141414
       const bgColor = globalIndex % 2 === 0 ? '#181818' : '#141414';
       const card = Card(c.title, c.desc, '💡', bgColor);
+
+      card.addEventListener('click', () => {
+        // Creamos contenido dinámico para el modal
+        const content = document.createElement('div');
+        content.className = 'flex flex-col gap-4 text-white';
+        content.innerHTML = `
+          <h2 class="text-2xl font-bold">${c.title}</h2>
+          <p class="">${c.desc}</p>
+          <p class="">Icono: 💡</p>
+        `;
+
+        Modal({ content, size: 'max-w-xl', animation: 'animate__zoomIn', bgColor: 'black' });
+      });
+
       row.appendChild(card);
       globalIndex++;
     });
