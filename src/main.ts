@@ -6,6 +6,7 @@ import { Home } from './routes/Home';
 import { Layout } from './layout/Layout';
 import { AboutMe } from './routes/About';
 import { Portfolio } from './routes/Portfolio';
+import { Soon } from './routes/Soon';
 
 Layout();
 
@@ -13,5 +14,6 @@ Layout();
 setupRouter({
   '/': Home,
   '/about': AboutMe,
-  '/portafolio': Portfolio
+  '/portafolio': Portfolio,
+  '/soon': Soon
 });
