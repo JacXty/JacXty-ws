@@ -1,2 +1,10 @@
 @import "tailwindcss";
 
+/* Declaración de variables globales */
+:root {
+  --color-dark: #141414;
+}
+
+body, html {
+  background-color: var(--color-dark);
+}
