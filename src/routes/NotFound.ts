@@ -1,18 +1,17 @@
-export function Soon() {
+export function NotFound() {
 
   const main = document.getElementById('main-content')!;
   main.innerHTML = '';
 
-  document.body.style.overflow = 'hidden'; // permite scroll si se necesita
-  main.style.overflow = 'hidden'; // el contenedor principal no agrega scroll
+  document.body.style.overflow = 'hidden';
+  main.style.overflow = 'hidden';
   main.style.minHeight = '100vh';
   main.style.height = '100%';
 
-  // --- SECTION ---
   const section = document.createElement('section');
-  section.id = 'soon';
+  section.id = 'notFound';
   section.className = `
-    relative flex flex-col items-center justify-center 
+    relative flex flex-col items-center justify-center
     text-center text-white overflow-hidden
     // CAMBIO CLAVE: Fondo negro uniforme (#000 o #111) en lugar de degradado
     bg-[#141414]
@@ -22,9 +21,9 @@ export function Soon() {
 
 
   // --- TITLES ---
-  const soon = document.createElement('h3');
-  soon.textContent = 'Soon . . .';
-  soon.className = 'text-base font-medium mb-1 tracking-widest text-white/80 z-10'; // Ajuste de tamaño y tracking
+  const notFound = document.createElement('h3');
+  notFound.textContent = 'Not Found . . .';
+  notFound.className = 'text-base font-medium mb-1 tracking-widest text-white/80 z-10'; // Ajuste de tamaño y tracking
 
   const title = document.createElement('h2');
   title.textContent = 'WE ARE WORKING ON IT';
@@ -33,15 +32,15 @@ export function Soon() {
   const subtitle = document.createElement('p');
   subtitle.textContent = '. . .';
   subtitle.className = 'absolute text-[12rem]';
-  subtitle.style.right = '35%'; 
+  subtitle.style.right = '35%';
   // --- IMAGE ---
   const image = document.createElement('img');
   image.src = '/foxcode.png';
-  image.alt = 'soon';
+  image.alt = 'notFound';
   image.className = `
     // Ajuste de tamaño: un poco más pequeño
     absolute
-    w-90 md:w-100 
+    w-90 md:w-100
     // La imagen en la original NO está volteada
     // He quitado 'scale-x-[-1]'
     mb-10 relative z-10
@@ -49,13 +48,9 @@ export function Soon() {
     filter brightness-[0.2]
   `;
 
-  // --- DOTS (Puntos de Carga) ---
-  // La imagen original NO usa el texto ". . .". Usa tres puntos circulares separados.
-  // Vamos a replicar los tres puntos con un div y spans.
   const dotsContainer = document.createElement('div');
   dotsContainer.className = 'flex justify-center items-center space-x-3 mb-12 relative z-10';
-  
-  // Puedes usar este CSS para la animación de carga, pero para la estática replicamos los puntos:
+
   for (let i = 0; i < 3; i++) {
     const dot = document.createElement('span');
     dot.className = 'w-2 h-2 rounded-full bg-white/70 opacity-100 transition-opacity duration-500';
@@ -64,29 +59,26 @@ export function Soon() {
     dotsContainer.appendChild(dot);
   }
 
-  // --- BUTTON (Llamado a la Acción) ---
   const button = document.createElement('button');
-  // CAMBIO CLAVE: Texto en español "Ponte en Contacto"
-  button.textContent = 'Ponte en Contacto'; 
+  button.textContent = 'Ponte en Contacto';
   button.className = `
     text-white/80 font-normal text-base relative z-10
     // Estilo de la línea debajo del texto (border-bottom)
-    border-b border-white/80 pb-1 
+    border-b border-white/80 pb-1
     hover:text-white hover:border-white
     focus:outline-none transition-all duration-300
     animate__animated animate__pulse
   `;
   button.setAttribute('aria-label', 'Go to Contact page');
   button.addEventListener('click', () => {
-    window.location.href = '/contact'; 
+    window.location.href = '/contact';
   });
-  // --- APPEND ---
 
-  section.appendChild(soon);
+  section.appendChild(notFound);
   section.appendChild(title);
   section.appendChild(subtitle);
   section.appendChild(image);
-  section.appendChild(dotsContainer); // Usamos el nuevo contenedor de puntos
+  section.appendChild(dotsContainer);
   section.appendChild(button);
   main.appendChild(section);
 }
