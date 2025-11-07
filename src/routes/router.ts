@@ -2,15 +2,19 @@
 export function setupRouter(routes: { [key: string]: () => void }) {
     function onRouteChange() {
         const path = window.location.pathname; // Ej: '/' o '/about'
+        const route = routes[path];
 
-        if (routes[path]) {
-            routes[path]();
+        if (route) {
+            route();
+        } else if (routes['/404']) {
+            console.warn(`Ruta no encontrada: "${path}". Mostrando /404.`);
+            routes['/404']();
         } else {
-            console.warn('Route not found:', path);
+            console.error(`Ruta no encontrada: "${path}" y no hay vista /404 definida.`);
         }
     }
 
-    window.addEventListener('popstate', onRouteChange); // Volver atrás/adelante
+    window.addEventListener('popstate', onRouteChange);
     window.addEventListener('load', onRouteChange);
 }
 
