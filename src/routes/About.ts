@@ -1,7 +1,16 @@
 import { Card } from '../components/Cards';
 import { Modal } from '../components/Modal';
+import { usePayloadApi } from '../hooks/usePayloadApi';
 
-export function AboutMe() {
+export async function AboutMe() {
+  const aboutData = await usePayloadApi('about/690bfea03e95b82f7f305a43', {
+  depth: 2,
+  draft: false,
+  locale: 'undefined',
+  trash: false
+  });
+  console.log(aboutData);
+
   const main = document.getElementById('main-content')!;
   main.innerHTML = '';
 
