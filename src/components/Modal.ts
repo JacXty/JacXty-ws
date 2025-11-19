@@ -26,6 +26,7 @@ export function Modal({
   closeBtn.className =
     'absolute top-2 right-2 text-2xl font-bold text-gray-700 hover:text-gray-900';
   closeBtn.addEventListener('click', () => {
+    document.body.style.overflow = '';
     document.body.removeChild(overlay);
   });
 
@@ -40,10 +41,12 @@ export function Modal({
 
   overlay.addEventListener('click', (e) => {
     if (e.target === overlay) {
+      document.body.style.overflow = '';
       document.body.removeChild(overlay);
     }
   });
 
+  document.body.style.overflow = 'hidden';
   document.body.appendChild(overlay);
 
   return { overlay, modal, closeBtn };
