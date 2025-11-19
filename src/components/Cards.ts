@@ -1,7 +1,7 @@
 export function Card(
   title: string,
   description: string,
-  icon: string = '💡',
+  icon: string | null,
   bgColor: string = '#141414'
 ): HTMLElement {
   const card = document.createElement('div');
@@ -9,8 +9,8 @@ export function Card(
     rounded-2xl p-6 border border-[#222]
     flex flex-col justify-between
     transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01]
-    h-64 flex-shrink-0 
-    w-full sm:w-[48%] md:w-[32%]  /* Responsive: 1 por fila en mobile, 2 en tablet, 3 en desktop */
+    h-64 flex-shrink-0
+    w-full sm:w-[48%] md:w-[32%]
   `;
   card.style.backgroundColor = bgColor;
 
@@ -19,7 +19,8 @@ export function Card(
     w-8 h-8 flex items-center justify-center rounded-full
     bg-[#1f1f1f] text-pink-500 mb-4 text-lg
   `;
-  iconEl.textContent = icon;
+
+  iconEl.innerHTML = `<i data-lucide="${icon}"></i>`;
 
   const titleEl = document.createElement('h3');
   titleEl.textContent = title;
@@ -27,7 +28,7 @@ export function Card(
 
   const descEl = document.createElement('p');
   descEl.textContent = description;
-  descEl.className = 'text-gray-400 text-sm leading-relaxed flex-1';
+  descEl.className = 'text-gray-400 text-sm leading-relaxed line-clamp-4 whitespace-normal';
 
   card.append(iconEl, titleEl, descEl);
   return card;
