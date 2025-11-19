@@ -28,8 +28,6 @@ export function Education(data: EducationArray) {
   const educationGrid = document.createElement('div');
   educationGrid.className = 'grid md:grid-cols-2 grid-cols-1 gap-4';
 
-  console.log(data);
-
   data.map((item) => {
   // CARD
   const card = document.createElement('div');
