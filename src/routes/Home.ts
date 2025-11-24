@@ -1,6 +1,10 @@
-export function Home() {
+import { usePayloadApi } from '../hooks/usePayloadApi';
+
+export async function Home() {
   const main = document.getElementById('main-content')!;
   main.innerHTML = '';
+
+  const homeData = await usePayloadApi('pages/690bfd513e95b82f7f3059de?depth=2&draft=false&locale=undefined&trash=false');
 
   // Section contenedor principal
   const section = document.createElement('section');
@@ -22,31 +26,35 @@ export function Home() {
   const contentContainer = document.createElement('div');
   contentContainer.className = 'relative flex flex-col items-center justify-center w-full h-full md:z-30';
 
-  // Subtítulo (centrado en móvil, absolute top-0 en escritorio)
-  const subtitle = document.createElement('p');
-  subtitle.textContent = 'Analista en Sistemas';
+  // Subtítulo como hipervínculo
+  const subtitle = document.createElement('a');
+  subtitle.href = 'https://istdabloja.edu.ec/';
+  subtitle.target = '_blank'; // para abrir en nueva pestaña
+  subtitle.rel = 'noopener noreferrer';
+
+  subtitle.textContent = homeData?.subtitle || 'Analista en Sistemas';
+
   subtitle.className = `
   animate__animated animate__fadeInDown
-    text-lg md:text-xl font-medium
-    underline
-    absolute top-0 md:left-1/2 md:-translate-x-1/2
-  `;
+  text-lg md:text-xl font-medium
+  underline
+  absolute md:top-0 top-8 md:left-1/2 md:-translate-x-1/2`;
+
 
   // Título centrado en el div
   const title = document.createElement('h1');
-  title.textContent = 'WE ARE\nFULL SERVICE\nAGENCY';
-  title.className = 'text-4xl md:text-6xl font-bold whitespace-pre-line text-center font-semibold animate__animated animate__fadeInDown';
+  title.textContent = homeData?.title || 'WE ARE\nFULL SERVICE\nAGENCY';
+  title.className = 'md:w-4/5 w-full md:leading-[6rem] leading-none text-2xl md:text-6xl font-bold whitespace-pre-line text-center font-semibold animate__animated animate__fadeInDown';
 
   // Párrafo a la derecha en escritorio, centrado en móvil
   const paragraph = document.createElement('p');
-  paragraph.textContent =
-    'Lorem ipsum dolor sit amet consectetur. Magna egestas accumsan aliquam pulvinar turpis. Faucibus fermentum iaculis cursus tortor iaculis sit varius tortor. Nunc adipiscing urna dolor non ut.';
+  paragraph.textContent = homeData?.description || 'Here the description';
   paragraph.className = `
     text-base md:text-sm max-w-md
     self-center md:self-end
     text-center md:text-right
     mb-4 md:mb-0
-    py-10
+    md:py-10 py-16
     animate__animated animate__fadeInDown
   `;
 
@@ -54,7 +62,7 @@ export function Home() {
   const button = document.createElement('button');
   button.className = `
     bg-transparent hover:opacity-80 transition cursor-pointer
-    md:absolute md:bottom-18 md:left-1/2 md:-translate-x-1/2
+    md:absolute md:bottom-18 bottom-24 md:left-1/2 md:-translate-x-1/2
     animate__animated animate__pulse animate__infinite
   `;
   button.setAttribute('aria-label', 'Go to About page');
