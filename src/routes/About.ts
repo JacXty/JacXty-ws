@@ -4,6 +4,8 @@ import { Card } from '../components/Cards';
 import { Modal } from '../components/Modal';
 import { usePayloadApi } from '../hooks/usePayloadApi';
 import { Education } from '../components/Education';
+import { Experience } from '../components/Experience';
+import { Skill } from '../components/Skill';
 
 
 
@@ -18,6 +20,7 @@ export async function AboutMe() {
 
   const educationData = await usePayloadApi(`education?where[about.id][equals]=${aboutData?.id}&depth=0`);
   const experienceData = await usePayloadApi(`experience?where[about.id][equals]=${aboutData?.id}&depth=0`);
+  const skillData = await usePayloadApi(`skills?where[about.id][equals]=${aboutData?.id}&depth=0`);
 
   const main = document.getElementById('main-content')!;
   main.innerHTML = '';
@@ -46,11 +49,11 @@ export async function AboutMe() {
   right.className = 'animate__animated animate__fadeInDown md:col-span-2 flex flex-col gap-6';
 
   const cardsData = [
-    { id: 1, title: 'User Information', desc: 'Jason Enmanuel Uyaguari Angamarca, Systems Analyst. Professional focused on technical and automated testing to maximize value delivery, ensuring superior results in complex software quality challenges.', icon: 'circle-user-round'},
-    { id: 2, title: 'Contact Information', desc: 'Direct contact info (number, email) and professional network presence. Use these channels for immediate communication and technical portfolio review.', icon: 'vibrate'},
-    { id: 3, title: 'Experience', desc: 'Trayectoria clave en Deuna (QA Automation, 2021-2023) y Tecsicom (Desarrollador Frontend, 2024-2025). Experiencia en la fusión de metodologías QA con desarrollo de alto rendimiento.', icon: 'rocket', content: { slug: 'experience', data: experienceData} },
-    { id: 4, title: 'Skills', desc: 'Mastery of E2E frameworks like Cypress, Playwright, and Selenium. Expert in API testing with Newman/Karate and BDD (Cucumber) methodology for effective collaboration and quality.', icon: 'brick-wall-shield' },
-    { id: 5, title: 'Management & Education', desc: 'Technologist in Systems Analysis. Proficient in management tools (Linear, ClickUp) and DevOps (Docker). Experienced in infrastructure monitoring with AWS (CloudWatch, DynamoDB).', icon: 'microscope',  content: { slug: 'education', data: educationData}  },
+    { id: 1, title: 'User Information', desc: 'Jason Enmanuel Uyaguari Angamarca, Systems Analyst. Professional focused on technical and automated testing to maximize value delivery, ensuring superior results in complex software quality challenges.', icon: 'circle-user-round', content: { slug: 'info-user', data: [] } },
+    { id: 2, title: 'Contact Information', desc: 'Direct contact info (number, email) and professional network presence. Use these channels for immediate communication and technical portfolio review.', icon: 'vibrate' },
+    { id: 3, title: 'Experience', desc: 'Trayectoria clave en Deuna (QA Automation, 2021-2023) y Tecsicom (Desarrollador Frontend, 2024-2025). Experiencia en la fusión de metodologías QA con desarrollo de alto rendimiento.', icon: 'rocket', content: { slug: 'experience', data: experienceData } },
+    { id: 4, title: 'Skills', desc: 'Mastery of E2E frameworks like Cypress, Playwright, and Selenium. Expert in API testing with Newman/Karate and BDD (Cucumber) methodology for effective collaboration and quality.', icon: 'brick-wall-shield', content: { slug: 'skills', data: skillData } },
+    { id: 5, title: 'Management & Education', desc: 'Technologist in Systems Analysis. Proficient in management tools (Linear, ClickUp) and DevOps (Docker). Experienced in infrastructure monitoring with AWS (CloudWatch, DynamoDB).', icon: 'microscope', content: { slug: 'education', data: educationData } },
   ];
 
   let index = 0;
@@ -74,9 +77,16 @@ export async function AboutMe() {
         const content = document.createElement('div');
         content.className = 'flex flex-col gap-4 text-white';
         if (c.content?.slug === 'education') {
-           const education = Education(c?.content?.data);
-           content.append(education);
-        } else {
+          const education = Education(c?.content?.data);
+          content.append(education);
+        } else if (c.content?.slug === 'experience') {
+          const experience = Experience(c?.content?.data);
+          content.append(experience);
+        } else if (c.content?.slug === 'skills') {
+          const skills = Skill(c?.content?.data);
+          content.append(skills);
+        }
+        else {
           content.innerHTML = `
             <h2 class="text-2xl font-bold">${c.title}</h2>
             <p class="">${c.desc}</p>
@@ -84,7 +94,7 @@ export async function AboutMe() {
           `;
         }
 
-        Modal({ content, size: 'max-w-5xl', animation: 'animate__zoomIn', bgColor: 'black' });
+        Modal({ content, size: 'max-w-5xl h-[80vh]', animation: 'animate__zoomIn', bgColor: 'black' });
       });
 
       row.appendChild(card);
