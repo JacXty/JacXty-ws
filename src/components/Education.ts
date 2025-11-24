@@ -22,7 +22,7 @@ export function Education(data: EducationArray) {
   // TITLE (fuera del grid)
   const title = document.createElement('h3');
   title.textContent = 'Education Details';
-  title.className = 'text-xl font-bold text-white';
+  title.className = 'text-2xl font-bold text-white';
 
   // GRID DE 2 COLUMNAS
   const educationGrid = document.createElement('div');

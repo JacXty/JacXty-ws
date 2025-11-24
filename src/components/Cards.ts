@@ -6,11 +6,12 @@ export function Card(
 ): HTMLElement {
   const card = document.createElement('div');
   card.className = `
-    rounded-2xl p-6 border border-[#222]
-    flex flex-col justify-between
-    transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01]
-    h-64 flex-shrink-0
-    w-full sm:w-[48%] md:w-[32%]
+  rounded-2xl p-6 border border-[#222] cursor-pointer
+  flex flex-col justify-between
+  transition-transform duration-300 ease-in-out
+  hover:-translate-y-1 hover:scale-105
+  h-64 flex-shrink-0
+  w-full sm:w-[48%] md:w-[32%]
   `;
   card.style.backgroundColor = bgColor;
 

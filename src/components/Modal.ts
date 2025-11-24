@@ -18,7 +18,7 @@ export function Modal({
 
   const modal = document.createElement('div');
   // ✅ Usamos bgColor como prop y mantenemos defaults
-  modal.className = `rounded-lg shadow-xl w-full mx-4 p-6 relative ${size} animate__animated ${animation}`;
+  modal.className = `overflow-y-auto h-full rounded-lg shadow-xl w-full mx-4 p-6 relative ${size} animate__animated ${animation}`;
   modal.style.backgroundColor = bgColor;
 
   const closeBtn = document.createElement('button');

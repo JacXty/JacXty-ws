@@ -45,7 +45,7 @@ export function Skill(data: SkillsResponse) {
         section.className = 'flex flex-col gap-3';
 
         const title = document.createElement('h3');
-        title.className = 'text-xl font-semibold text-white';
+        title.className = 'text-2xl font-semibold text-white';
 
         // Si no existe, usa la categoría real
         title.textContent = categoryLabels[category] ?? category;
