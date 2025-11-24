@@ -67,7 +67,7 @@ export function Carousel(items: Project[] = []) {
         img.classList.remove('animate__animated', 'animate__pulse');
       });
 
-        // 👆 Click para abrir modal
+      // 👆 Click para abrir modal
       img.addEventListener('click', () => {
         // Creamos contenido dinámico usando el objeto `item`
         const content = document.createElement('div');

@@ -25,12 +25,12 @@ export function Experience(data: ExperienceList = []) {
 
     // Big Number dinámico
     const bigNumber = document.createElement('span');
-    bigNumber.className = 'text-[60px] font-extrabold text-gray-200 leading-none';
+    bigNumber.className = 'text-[40px] font-extrabold text-gray-200 leading-none';
     bigNumber.textContent = '01';
 
     // Title dinámico
     const title = document.createElement('h2');
-    title.className = 'text-3xl font-semibold text-white flex place-items-end';
+    title.className = 'md:text-2xl text-base font-semibold text-white flex place-items-end';
     title.textContent = data[0]?.position || 'Untitled';
 
     header.appendChild(bigNumber);
