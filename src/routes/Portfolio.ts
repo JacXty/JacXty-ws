@@ -1,36 +1,42 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Carousel } from '../components/Carousel';
+import { usePayloadApi } from '../hooks/usePayloadApi.js';
 
-// @ts-expect-error
-import { projects } from '../data/projects.js';
-
-export function Portfolio() {
+export async function Portfolio() {
   const main = document.getElementById('main-content');
   if (!main) {
     console.error('Element with id "main-content" not found.');
     return;
   }
 
-  // Limpia el contenido anterior
+  const aboutData = await usePayloadApi('about/690bfea03e95b82f7f305a43', {
+    depth: 2,
+    draft: false,
+    locale: 'undefined',
+    trash: false
+  });
+
+  const projectData = await usePayloadApi(
+    `projects?where[about.id][equals]=${aboutData?.id}&depth=0`
+  );
+
+  // Limpia contenido previo
   main.innerHTML = '';
 
-  // Crea la sección principal
+  // Crea sección
   const section = document.createElement('section');
-  section.className = 'animate__animated animate__fadeInDown text-white px-6 md:px-10 pt-4';
+  section.className =
+    'animate__animated animate__fadeInDown text-white px-6 md:px-10 pt-4';
 
-  // Crea el título
+  // Título
   const title = document.createElement('h2');
   title.textContent = 'My Works';
   title.className = 'text-center text-3xl font-bold mb-6 uppercase py-4';
 
-  // Llamas al componente Carousel
-  const carousel = Carousel(projects);
+  // ⚠️ IMPORTANTE: Carousel es async → usar await
+  const carousel = await Carousel(projectData);
 
-  // Agrega el título a la sección
   section.appendChild(title);
-
   section.appendChild(carousel);
 
-  // Agrega la sección al main
   main.appendChild(section);
 }
