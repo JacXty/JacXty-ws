@@ -1,12 +1,33 @@
 import { Modal } from './Modal';
 
-export interface Project {
-  id: number;
-  title: string;
-  role: string;
-  description: string;
-  thumbnail_url: string;
+export interface TechItem {
+  id: string;
+  name: string;
 }
+export interface Project {
+  id: string;
+
+  createdAt: string | Date;
+  updatedAt: string | Date;
+
+  about: string;
+
+  title: string;
+  description: string;
+  role: string;
+
+  techStack: TechItem[];
+
+  repoUrl?: string | null;
+  demoUrl?: string | null;
+
+  background: string;
+  thumbnail: string;
+
+  startDate: string | Date;
+  endDate: string | Date;
+}
+
 
 export function Carousel(items: Project[] = []) {
   const itemsPerPage = 3;
@@ -41,7 +62,7 @@ export function Carousel(items: Project[] = []) {
 
     const visibleItems = items.slice(currentIndex, currentIndex + itemsPerPage);
 
-    visibleItems.forEach((item, index) => {
+    visibleItems.forEach(async (item, index) => {
       const globalIndex = currentIndex + index; // índice real dentro del array original
       const card = document.createElement('div');
 
@@ -55,7 +76,8 @@ export function Carousel(items: Project[] = []) {
       }
 
       const img = document.createElement('img');
-      img.src = item.thumbnail_url;
+
+      img.src = item.background;
       img.alt = item.title;
       img.className = 'md:border-0 border border-bg-white/5 object-cover object-center cursor-pointer w-full h-full object-cover rounded-xl';
 
@@ -72,16 +94,39 @@ export function Carousel(items: Project[] = []) {
         // Creamos contenido dinámico usando el objeto `item`
         const content = document.createElement('div');
         content.className = 'flex flex-col gap-4';
+
+        // ⬇️ CORREGIDO: usar tech.name
+        const techBadges = item.techStack && Array.isArray(item.techStack)
+          ? item.techStack.map(tech =>
+            `<span class="px-3 py-1 bg-gray-800 text-gray-200 rounded-full text-sm">
+          ${tech.name}
+        </span>`
+          ).join('')
+          : '<span class="text-gray-400">No tech stack</span>';
+
         content.innerHTML = `
           <h2 class="text-2xl font-bold">${item.title}</h2>
           <p class="text-gray-600"><strong>Role:</strong> ${item.role}</p>
           <p class="text-gray-500">${item.description}</p>
-          <img src="${item.thumbnail_url}" alt="${item.title}" class="w-full h-64 object-cover rounded-lg" />
+
+          <img src="${item.background}" alt="${item.title}" class="w-full h-64 object-cover rounded-lg" />
+
+          <div class="flex flex-col gap-2">
+            <p class="text-gray-400 font-semibold">Tech Stack:</p>
+            <div class="flex flex-wrap gap-2">
+              ${techBadges}
+            </div>
+          </div>
         `;
 
         // Abrimos el modal y pasamos el contenido
-        Modal({ content, size: 'max-w-2xl', animation: 'animate__zoomIn' });
+        Modal({
+          content,
+          size: 'max-w-2xl md:h-[80vh]',
+          animation: 'animate__zoomIn'
+        });
       });
+
 
       const overlay = document.createElement('div');
       overlay.className =
